@@ -1,3 +1,7 @@
+#ATTENTION!
+##This app is for personal use only, powered by open source API
+##It is strictly forbidden to sell or buy this application
+
 # weather-app
 
 ## Project setup
@@ -23,5 +27,3 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-
- 
