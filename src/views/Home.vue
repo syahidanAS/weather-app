@@ -217,7 +217,7 @@
                 <span class="city">{{ this.cityShow }}</span>
               </p>
               <p class="text-center text-light" id="country">
-                Feels Like {{ current.feelsLike }}°C <i class="dot"></i>
+                Feels Like {{ current.feelsLike }}°C <i class="dot mx-2"></i>
                 <span class="city">Sunset {{ current.sunset }}</span>
               </p>
               <div class="index text-light">
