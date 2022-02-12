@@ -39,7 +39,7 @@
                 <form action=""></form>
               </div>
             </div>
-            <div class="btn-group mt-4" role="group" >
+            <div class="btn-group mt-4" role="group">
               <div v-if="buttonState">
                 <button
                   type="button"
@@ -85,14 +85,14 @@
             <div v-if="loading" style="margin-top: 15%">
               <Spinner size="large" />
             </div>
-            <div v-else >
+            <div v-else>
               <div class="mt-4 forecast-detail">
                 <div v-if="buttonState">
                   <div
                     v-for="cast in hourlyForecast"
                     :key="cast.id"
                     class="row"
-                    style="height:;"
+                    style="height: "
                   >
                     <div class="col col-fore">
                       <h5>
@@ -125,7 +125,7 @@
                   </div>
                 </div>
                 <div v-else>
-                  <div class="day-container" >
+                  <div class="day-container">
                     <div
                       v-for="dailyForecast in dailyForecasts"
                       :key="dailyForecast.id"
@@ -183,18 +183,27 @@
             <!-- BUAT FORECAST! -->
           </div>
         </div>
-        <div class="col-md-4 banner-sec" id="temp" >
+        <div class="col-md-4 banner-sec" id="temp">
           <div id="space">
-          <div class="shadow rounded mt-4 input-mobile ms-2">
-           <div>
+            <div class="shadow rounded mt-4 input-mobile ms-2">
               <div>
+                <div>
                   <div class="input-group">
-                      <input type="text" class="form-control" v-model="city" @change="find"/>
-                      <span class="input-group-addon btn btn-primary" @click="find"><i class="fa fa-search"></i></span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      v-model="city"
+                      @change="find"
+                    />
+                    <span
+                      class="input-group-addon btn btn-primary"
+                      @click="find"
+                      ><i class="fa fa-search"></i
+                    ></span>
                   </div>
+                </div>
               </div>
-          </div>
-          </div>
+            </div>
             <div class="loading-mobile" v-if="loading">
               <Spinner size="large" />
             </div>
@@ -236,46 +245,60 @@
                 <p>{{ current.airPressure }} psi</p>
               </div>
               <!-- MOBILE PHONE FORECAST -->
-             <div id="mobile-forecast">
-                <table class="table table-responsive table-borderless text-light ms-3 mt-4">
-                <tr>
-                  <th>Date/time</th>
-                  <th>Lowest</th>
-                  <th>Highest</th>
-                  <th>Weather</th>
-                </tr>
-                <tr
-                  v-for="dailyForecast in dailyForecasts"
-                  :key="dailyForecast.id"
+              <div id="mobile-forecast">
+                <table
+                  class="table table-responsive table-borderless text-light ms-3 mt-4"
                 >
-                  <td>
-                    {{
-                      new Date(dailyForecast.dt * 1000).toLocaleString()
-                        | moment("dddd")
-                    }}
-                  </td>
-                  <td>
-                     {{ (dailyForecast.temp.min - 273.15).toFixed(0) }}°C
-                  </td>
-                  <td>
-                    {{ (dailyForecast.temp.max - 273.15).toFixed(0) }}°C
-                  </td>
-                  <td>
-                    {{ dailyForecast.weather[0].main }}
-                  </td>
-                </tr>
-              </table>
-             </div>
+                  <tr>
+                    <th>Date/time</th>
+                    <th>Lowest</th>
+                    <th>Highest</th>
+                    <th>Weather</th>
+                  </tr>
+                  <tr
+                    v-for="dailyForecast in dailyForecasts"
+                    :key="dailyForecast.id"
+                  >
+                    <td>
+                      {{
+                        new Date(dailyForecast.dt * 1000).toLocaleString()
+                          | moment("dddd")
+                      }}
+                    </td>
+                    <td>
+                      {{ (dailyForecast.temp.min - 273.15).toFixed(0) }}°C
+                    </td>
+                    <td>
+                      {{ (dailyForecast.temp.max - 273.15).toFixed(0) }}°C
+                    </td>
+                    <td>
+                      {{ dailyForecast.weather[0].main }}
+                    </td>
+                  </tr>
+                </table>
+              </div>
 
-             <div>
-               <p class="text-light copy-right">Created by : <a class="text-light" href="https://syahidanas.site">Syahidan A.S</a></p>
-             </div>
-
+              <div>
+                <p class="text-light copy-right">
+                  Created by :
+                  <a class="text-light" href="https://syahidanas.site"
+                    >Syahidan A.S</a
+                  >
+                </p>
+              </div>
             </div>
-            
-             <div>
-               <p class="mobile-copyright">Created by : <a class="" href="https://syahidanas.site" style="color: rgba(197, 199, 236, 0.493);">Syahidan A.S</a></p>
-             </div>
+
+            <div>
+              <p class="mobile-copyright">
+                Created by :
+                <a
+                  class=""
+                  href="https://syahidanas.site"
+                  style="color: rgba(197, 199, 236, 0.493)"
+                  >Syahidan A.S</a
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -356,7 +379,7 @@ export default {
 
       // FORWARD GEOLOCATION
       axios
-        .get("https://trueway-geocoding.p.rapidapi.com/Geocode", {
+        .get(`${process.env.VUE_APP_GEOCODING_URL}Geocode`, {
           params: {
             address: this.city,
             language: "en",
@@ -373,7 +396,7 @@ export default {
           //Weather Today
           axios
             .get(
-              "https://api.openweathermap.org/data/2.5/weather?q=" +
+              `${process.env.VUE_APP_API_URL}weather?q=` +
                 this.city +
                 "&appid=" +
                 this.apiProperties.key +
@@ -413,7 +436,7 @@ export default {
 
           axios
             .get(
-              "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+              `${process.env.VUE_APP_API_URL}onecall?lat=` +
                 this.latForecast +
                 "&lon=" +
                 this.lonForecast +
@@ -451,7 +474,7 @@ export default {
           (position) => {
             axios
               .get(
-                "https://api.openweathermap.org/data/2.5/weather?lat=" +
+                `${process.env.VUE_APP_API_URL}weather?lat=` +
                   position.coords.latitude +
                   "&lon=" +
                   position.coords.longitude +
@@ -482,7 +505,7 @@ export default {
 
                 axios
                   .get(
-                    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+                    `${process.env.VUE_APP_API_URL}onecall?lat=` +
                       position.coords.latitude +
                       "&lon=" +
                       position.coords.longitude +
@@ -535,22 +558,24 @@ export default {
 };
 </script>
 <style scoped>
-.loading-mobile{
+.loading-mobile {
   margin-top: 50%;
 }
-.input-mobile{
+.input-mobile {
   display: none;
 }
-#mobile-forecast{
+#mobile-forecast {
   display: none;
 }
-.mobile-copyright{
+.mobile-copyright {
   display: none;
   margin-left: 30%;
   color: rgba(197, 199, 236, 0.493);
 }
-.copy-right{
-  position:absolute;bottom:1%; right:25%;
+.copy-right {
+  position: absolute;
+  bottom: 1%;
+  right: 25%;
 }
 .login-block {
   float: left;
@@ -652,24 +677,24 @@ button:hover {
 }
 
 @media only screen and (max-width: 600px) {
-  .loading-mobile{
-  margin-top: 50%;
-  margin-bottom: 50%;
-}
-  .input-mobile{
-  display: block;
-}
-  #mobile-forecast{
-  display: block;
-}
-.copy-right{
- display: none;
-}
-.mobile-copyright{
-  display: block;
-  bottom: 0;
-  font-size: 10px;
-}
+  .loading-mobile {
+    margin-top: 50%;
+    margin-bottom: 50%;
+  }
+  .input-mobile {
+    display: block;
+  }
+  #mobile-forecast {
+    display: block;
+  }
+  .copy-right {
+    display: none;
+  }
+  .mobile-copyright {
+    display: block;
+    bottom: 0;
+    font-size: 10px;
+  }
   .detail-sec {
     display: none;
   }
